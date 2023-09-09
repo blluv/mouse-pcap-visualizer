@@ -1,0 +1,1 @@
+tshark -r data.pcapng -Y "usb.device_address == 9 && usbhid.data" -T fields -e usbhid.data.axis.x -e usbhid.data.axis.y -e usbhid.data.button > usbdata.csv

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas" width="8000" height="8000"></canvas>
+
+    <script>
+        (async () => {
+            const c = document.getElementById("canvas");
+
+            let x = c.clientWidth / 2 | 0
+            let y = c.clientHeight / 2 | 0
+
+            const ctx = c.getContext("2d");
+
+            const data = await fetch("/usbdata.csv").then(res => res.text()).then(res => res.split("\n").map(line => line.split("\t")));
+
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            for (const d of data) {
+                x += +d[0];
+                y += +d[1];
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+        })();
+    </script>
+</body>
+
+</html>
